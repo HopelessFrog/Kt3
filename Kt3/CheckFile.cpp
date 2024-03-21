@@ -1,4 +1,5 @@
 #include "CheckFile.h"
+#include <filesystem>
 
 std::ofstream CheckFile()
 {
@@ -19,6 +20,10 @@ std::ofstream CheckFile()
 		}
 		try
 		{
+			if (std::filesystem::is_regular_file(name)) {
+				std::cout << "File is a system file." << std::endl;
+				continue;
+			}
 			CheckFileExist.open(name);
 			std::cout << "A file with the same name already exists. " << std::endl
 				<< "1 - Save in this file " << std::endl
