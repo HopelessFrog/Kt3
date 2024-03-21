@@ -20,7 +20,7 @@ std::ofstream CheckFile()
 		}
 		try
 		{
-			if (std::filesystem::is_regular_file(name)) {
+			if (!std::filesystem::is_regular_file(name)) {
 				std::cout << "File is a system file." << std::endl;
 				continue;
 			}
