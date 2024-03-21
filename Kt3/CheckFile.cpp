@@ -1,11 +1,8 @@
 #include "CheckFile.h"
 #include <filesystem>
 #include <Windows.h>
-#include <sys/stat.h>
-#include <fileapi.h>
-#include <fstream>
 #include <string>
-#include <filesystem>
+
 
 std::ofstream CheckFile()
 {
@@ -26,11 +23,7 @@ std::ofstream CheckFile()
 		}
 		try
 		{
-			if (!std::filesystem::is_regular_file(name))
-			{
-				std::cout << "reserved filename!";
-				continue;
-			}
+		
 
 			CheckFileExist.open(name);
 			std::cout << "A file with the same name already exists. " << std::endl
@@ -39,6 +32,11 @@ std::ofstream CheckFile()
 			int var = CheckMenu(2);
 			if (var == this_file)
 			{
+				if (!std::filesystem::is_regular_file(name))
+				{
+					std::cout << "reserved filename!";
+					continue;
+				}
 				FileRecorder.open(name);
 				CheckFileExist.close();
 			}
