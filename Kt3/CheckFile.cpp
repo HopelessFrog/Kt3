@@ -1,5 +1,20 @@
 #include "CheckFile.h"
 #include <filesystem>
+#include <Windows.h>
+#include <ShlObj_core.h>
+
+
+bool IsLegalFileName(std::string name)
+{
+	std::wstring widestr = std::wstring(name.begin(), name.end());
+	const wchar_t* filename = widestr.c_str();
+	WCHAR valid_invalid[MAX_PATH];
+	wcscpy_s(valid_invalid, filename);
+
+	int result = PathCleanupSpec(nullptr, valid_invalid);
+
+	return result == 0 && _wcsicmp(valid_invalid, filename) == 0;
+}
 
 std::ofstream CheckFile()
 {
@@ -20,7 +35,7 @@ std::ofstream CheckFile()
 		}
 		try
 		{
-			if (!std::filesystem::is_regular_file(name)) {
+			if (!IsLegalFileName(name)) {
 				std::cout << "File is a system file." << std::endl;
 				continue;
 			}
