@@ -32,13 +32,13 @@ std::ofstream CheckFile()
 			int var = CheckMenu(2);
 			if (var == this_file)
 			{
+				CheckFileExist.close();
 				if (!std::filesystem::is_regular_file(name))
 				{
 					std::cout << "reserved filename!";
 					continue;
 				}
 				FileRecorder.open(name);
-				CheckFileExist.close();
 			}
 			else
 			{
