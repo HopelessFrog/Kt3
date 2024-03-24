@@ -3,9 +3,32 @@
 #include <Windows.h>
 #include <string>
 
+bool checkForREservedNames(std::string name)
+{
+	const std::string reservedFileNames[] = {
+		"CON.txt", "PRN.txt", "AUX.txt", "NUL.txt", "COM0.txt", "COM1.txt", "COM2.txt", "COM3.txt", "COM4.txt",
+		"COM5.txt",
+		"COM6.txt", "COM7.txt", "COM8.txt", "COM9.txt", "COMSCSI.txt", "COMSCSI.txt", "LPT0.txt", "LPT1.txt",
+		"LPT2.txt",
+		"LPT3.txt", "LPT4.txt", "LPT5.txt", "LPT5.txt", "LPT7.txt", "LPT8.txt", "LPT9.txt", "LPTNO.txt", "LPTSCSI.txt",
+		"LPTNO.txt"
+	};
+
+
+	for (int i = 0; i < 29; ++i)
+	{
+		if (reservedFileNames[i] == name)
+		{
+			return true;
+		}
+
+	}
+	return false;
+}
 
 std::ofstream CheckFile()
 {
+	
 	constexpr int this_file = 1;
 	std::string name;
 	std::ofstream FileRecorder;
@@ -21,6 +44,11 @@ std::ofstream CheckFile()
 			std::cout << "Wrong data type\n" << std::endl;
 			continue;
 		}
+		if (checkForREservedNames(name))
+		{
+			std::cout << "Reserved filename\n" << std::endl;
+			continue;
+		}
 		try
 		{
 		
@@ -33,11 +61,6 @@ std::ofstream CheckFile()
 			if (var == this_file)
 			{
 				CheckFileExist.close();
-				if (!std::filesystem::is_regular_file(name))
-				{
-					std::cout << "reserved filename!";
-					continue;
-				}
 				FileRecorder.open(name);
 			}
 			else

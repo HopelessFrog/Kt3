@@ -1,9 +1,26 @@
 #include "Counter.h"
 #include <string>
 
-std::vector<std::string> CountAll(std::vector<char> all_text)
+std::vector<std::string> CountAllDecor(std::vector<char> all_text)
 {
-	std::vector<std::string> SWLA;
+	std::vector<std::string> info;
+	std::vector<int> infoValue = CountAll(all_text);
+
+	int symbols = infoValue[0];
+	int words = infoValue[1];
+	int lines = infoValue[2];
+	int paragraph = infoValue[3];
+	info.emplace_back("Sym = " + std::to_string(symbols) + "\n");
+	info.emplace_back("Words = " + std::to_string(words) + "\n");
+	info.emplace_back("Lines = " + std::to_string(lines) + "\n");
+	info.emplace_back("Paragraph = " + std::to_string(paragraph) + "\n");
+
+	return info ;
+}
+
+std::vector<int> CountAll(std::vector<char> all_text)
+{
+	std::vector<int> info;
 	int symbols = 0;
 	int words = 0;
 	int lines = 0;
@@ -21,10 +38,10 @@ std::vector<std::string> CountAll(std::vector<char> all_text)
 		if (all_text[i] == '\n')
 			lines++;
 	}
-	SWLA.emplace_back("Sym = " + std::to_string(symbols) + "\n");
-	SWLA.emplace_back("Words = " + std::to_string(words) + "\n");
-	SWLA.emplace_back("Lines = " + std::to_string(lines) + "\n");
-	SWLA.emplace_back("Paragraph = " + std::to_string(paragraph) + "\n");
+	info.emplace_back(symbols);
+	info.emplace_back(words);
+	info.emplace_back(lines);
+	info.emplace_back(paragraph);
 
-	return SWLA;
+	return info;
 }

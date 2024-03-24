@@ -39,7 +39,7 @@ int main()
 		case out:
 			return 0;
 		}
-		std::vector<std::string> text_info = CountAll(all_text);
+		std::vector<std::string> text_info = CountAllDecor(all_text);
 		std::vector<SentencesCounter> sentences = CountSentence(all_text);
 
 		for (int i = 0; i < text_info.size(); i++)
